@@ -822,6 +822,8 @@ main (int argc, char *argv[])
         query_forwardonly ();
     if (env_get ("MERGEQUERIES"))
         dns_enable_merge (log_merge);
+    if (env_get ("CACHEDROPZEROTTL"))
+        cache_dropzerottl();
     if (!roots_init ())
         err (-1, "could not read servers");
     if (debug_level > 3)

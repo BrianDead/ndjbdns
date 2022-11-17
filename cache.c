@@ -41,6 +41,13 @@ static uint32 writer;
 static uint32 oldest;
 static uint32 unused;
 
+static int flag_dropzerottl=0;
+
+void
+cache_dropzerottl(void) {
+    flag_dropzerottl=1;
+}
+
 /*
 100 <= size <= 1000000000.
 4 <= hsize <= size/16.
@@ -152,7 +159,8 @@ cache_get (const char *key, unsigned int keylen,
             {
                 tai_unpack (x + pos + 12, &expire);
                 tai_now (&now);
-                if (tai_less (&expire, &now))
+                if (tai_less (&expire, &now) ||
+                    (flag_dropzerottl && tai_less_equal (&expire, &now)))
                     return 0;
 
                 tai_sub (&expire, &expire, &now);

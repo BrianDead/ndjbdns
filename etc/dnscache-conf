@@ -51,6 +51,11 @@ ROOT=PREFIX
 #
 HIDETTL=
 
+# If CACHEDROPZEROTTL is set, dnscache will not return results from the
+# cache when the TTL is <1. In normal operation, cached results are used
+# until TTL <0;
+CACHEDROPZEROTTL=
+
 # If FORWARDONLY is set, dnscache treats the servers/roots as a list of IP
 # addresses for other caches, not root servers. It forwards queries to those
 # caches the same way a client does, rather than contacting a chain of servers
